@@ -12,9 +12,14 @@ import { useLocation } from "react-router-dom";
 import Modal from "react-modal";
 import { FaBeer } from "react-icons/fa";
 import { AiOutlineCloseCircle } from "react-icons/ai";
+import Header from "../Header";
+import TopbarStart from "../TopbarStart";
+import Footer from "../Footer";
 
 
 const Epaper_details = () => {
+  const [render, setRender] = useState(false);
+  const agencyDetails = useRef(null);
 
   const defaultLayoutPluginInstance = defaultLayoutPlugin();
   const thumbnailPluginInstance = thumbnailPlugin();
@@ -263,6 +268,9 @@ const Epaper_details = () => {
         onMouseDown={handleMouseDown}
         onMouseUp={handleMouseUp}
       >
+                  <Header />
+                  {<TopbarStart page_name={"Detailed_News_Page"} />}
+
         <Worker workerUrl="https://unpkg.com/pdfjs-dist@2.16.105/build/pdf.worker.min.js">
           {viewPdf && (
             <>
@@ -286,6 +294,8 @@ const Epaper_details = () => {
             </>
           )}
         </Worker>
+        {<Footer page_name={"Categories_Page"} agencyDetails={agencyDetails.current} />}
+
       </div>
       {loader && (
         <div className="loader-container">

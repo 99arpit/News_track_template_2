@@ -17,6 +17,28 @@ function MainNewsSlider({ agencyDetails, breakingNews, page_name }) {
     getCategories();
   }, []);
 
+
+
+  const [searchInput, setSearchInput] = useState('');
+  const [filteredCategories, setFilteredCategories] = useState([]);
+
+  // ...
+
+  // Function to handle search input change
+  const handleSearchInput = (event) => {
+    const inputValue = event.target.value;
+    setSearchInput(inputValue);
+
+    // Filter the categories based on the search input
+    const filtered = categories.filter((item) =>
+      item.categories_Name_Hindi.toLowerCase().includes(inputValue.toLowerCase())
+    );
+    setFilteredCategories(filtered);
+  };
+
+
+
+
   const getCategories = async () => {
     try {
       const response = await axios.get(
@@ -167,7 +189,7 @@ function MainNewsSlider({ agencyDetails, breakingNews, page_name }) {
           <div className="sidebar">
             <div className="box">
               <h2 className="title">Categories</h2>
-              <div className="sponsors">
+              {/* <div className="sponsors">
                 {splitCategoriesIntoPairs(categories).map((pair, index) => (
                   <div key={index} className="displayinline">
                     {pair.map((item, itemIndex) => (
@@ -228,7 +250,172 @@ function MainNewsSlider({ agencyDetails, breakingNews, page_name }) {
                     </ul>
                   </nav>
                 </div>
+              </div> */}
+              {/* <div className="sponsors">
+              <div style={{textAlign:'center',}}>
+              <input 
+        type="text"
+        placeholder="Search by Category"
+        value={searchInput}
+        onChange={handleSearchInput}
+      />
               </div>
+     
+
+      {splitCategoriesIntoPairs(filteredCategories.length > 0 ? filteredCategories : categories).map((pair, index) => (
+        <div key={index} className="displayinline">
+          {pair.map((item, itemIndex) => (
+            <div
+              key={itemIndex}
+              className="categories-item"
+              onClick={() =>
+                navigate(
+                  `/${agencyDetails._id}/Category/${item.categories_Name_Url}`,
+                  {
+                    state: { agencyDetails },
+                  }
+                )
+              }
+            >
+              <a className="categories-item-a">{item.categories_Name_Hindi}</a>
+            </div>
+          ))}
+        </div>
+      ))}
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+      >
+        <nav aria-label="Page navigation example">
+          <ul className="pagination">
+            <li className="page-item">
+              <a
+                className="page-link"
+                onClick={handlePrevCategoryPage}
+                disabled={currentCategoryPage === 1}
+              >
+                <i className="fa fa-angle-left text-primary mr-2" />
+                <i className="fa fa-angle-left text-primary mr-2" />
+              </a>
+            </li>
+            {categoryPageNumbers.map((pageNumber) => (
+              <li className="page-item" key={pageNumber}>
+                <a
+                  className={`page-link page-number-button ${pageNumber === currentCategoryPage ? 'active' : ''}`}
+                  onClick={() => handleCategoryPageClick(pageNumber)}
+                >
+                  {pageNumber}
+                </a>
+              </li>
+            ))}
+            <li className="page-item">
+              <a
+                className="page-link"
+                onClick={handleNextCategoryPage}
+                disabled={endIndex >= categories.length}
+              >
+                <i className="fa fa-angle-right text-primary mr-2" />
+                <i className="fa fa-angle-right text-primary mr-2" />
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div> */}
+
+
+
+
+
+
+
+    <div className="sponsors">
+      <div className="search-bar" style={{textAlign:'center'}}>
+        {/* <input
+          type="text"
+          placeholder="Search by Category"
+          value={searchInput}
+          onChange={handleSearchInput}
+        />       */}
+        
+
+      </div>
+
+      {splitCategoriesIntoPairs(filteredCategories.length > 0 ? filteredCategories : categories).map((pair, index) => (
+        <div key={index} className="displayinline">
+          {pair.map((item, itemIndex) => (
+            <div
+              key={itemIndex}
+              className="categories-item"
+              onClick={() =>
+                navigate(
+                  `/${agencyDetails._id}/Category/${item.categories_Name_Url}`,
+                  {
+                    state: { agencyDetails },
+                  }
+                )
+              }
+            >
+              <a className="categories-item-a">{item.categories_Name_Hindi}</a>
+            </div>
+          ))}
+        </div>
+      ))}
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+      >
+        <nav aria-label="Page navigation example">
+          <ul className="pagination">
+            <li className="page-item">
+              <a
+                className="page-link"
+                onClick={handlePrevCategoryPage}
+                disabled={currentCategoryPage === 1}
+              >
+                <i className="fa fa-angle-left text-primary mr-2" />
+                <i className="fa fa-angle-left text-primary mr-2" />
+              </a>
+            </li>
+            {categoryPageNumbers.map((pageNumber) => (
+              <li className="page-item" key={pageNumber}>
+                <a
+                  className={`page-link page-number-button ${pageNumber === currentCategoryPage ? 'active' : ''}`}
+                  onClick={() => handleCategoryPageClick(pageNumber)}
+                >
+                  {pageNumber}
+                </a>
+              </li>
+            ))}
+            <li className="page-item">
+              <a
+                className="page-link"
+                onClick={handleNextCategoryPage}
+                disabled={endIndex >= categories.length}
+              >
+                <i className="fa fa-angle-right text-primary mr-2" />
+                <i className="fa fa-angle-right text-primary mr-2" />
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+
+
+
+
+
+
+
+
+
             </div>
           </div>
         </div>

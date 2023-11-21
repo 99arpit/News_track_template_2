@@ -22,8 +22,9 @@ function Header() {
       </div>
       <div className="One-Contain">
         <form className="header-form" action="#">
-          <p className="header-form-p">Search: </p>
-          <input className="header-input" type="text" name="s" id="s" value="Search" />
+          {/* <p className="header-form-p">Search: </p> */}
+          {/* <input className="header-input" type="text" name="s" id="s" value="Search" /> */}
+          
         </form>
       </div>
 
